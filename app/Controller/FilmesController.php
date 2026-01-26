@@ -7,7 +7,7 @@ class FilmesController extends AppController {
 
     public function index() {
 
-    $fields = ['Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+    $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
     $order = ['Filme.ano' => 'desc'];     
     $filmes = $this->Filme->find('all', compact('fields','order'));
     
@@ -42,4 +42,9 @@ class FilmesController extends AppController {
 
      }
 
+       public function view($id = null){
+         $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+         $conditions = array('Filme.id' => $id);
+         $this->request->data = $this->Filme->find('first', compact('fields','conditions'));
+       }
 }
