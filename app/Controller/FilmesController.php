@@ -26,6 +26,20 @@ class FilmesController extends AppController {
         }
      }
 
-   
+     public function edit($id = null ){
+       if(!empty($this->request->data)){
+            $this->Filme->create();
+           if($this->Filme->save($this->request->data)){
+              $this->Flash->set("Filme editado com sucesso");
+              $this->Redirect('/Filmes');
+              }
+        }else{
+          $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+          $conditions = array('Filme.id' => $id);
+          $this->request->data = $this->Filme->find('first', compact('fields','conditions'));
+          
+        }
+
+     }
 
 }
