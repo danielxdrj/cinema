@@ -7,7 +7,7 @@ class FilmesController extends AppController {
 
     public function index() {
 
-    $fields = ['Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+    $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
     $order = ['Filme.ano' => 'desc'];     
     $filmes = $this->Filme->find('all', compact('fields','order'));
     
@@ -26,6 +26,32 @@ class FilmesController extends AppController {
         }
      }
 
-   
+     public function edit($id = null ){
+       if(!empty($this->request->data)){
+            $this->Filme->create();
+           if($this->Filme->save($this->request->data)){
+              $this->Flash->set("Filme editado com sucesso");
+              $this->Redirect('/Filmes');
+              }
+        }else{
+          $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+          $conditions = array('Filme.id' => $id);
+          $this->request->data = $this->Filme->find('first', compact('fields','conditions'));
+          
+        }
 
+     }
+
+       public function view($id = null){
+         $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+         $conditions = array('Filme.id' => $id);
+         $this->request->data = $this->Filme->find('first', compact('fields','conditions'));
+       }
+
+       public function delete($id = null){
+         if($this->Filme->delete($id)){
+            $this->Flash->set("Filme deletado com sucesso");
+            $this->Redirect('/Filmes');
+         }
+       }
 }
