@@ -10,13 +10,14 @@ foreach ($filmes as $filme) {
         $filme['Filme']['ano'],
         $filme['Filme']['duracao'],
         $filme['Filme']['idioma'],
+        $filme['Genero']['nome'],
         $editLink . ' ' . $deleteLink
     );
 }
 
 
 
-$titulos = array('Nome', 'Ano', 'Duração', 'Idioma', 'Ações');
+$titulos = array('Nome', 'Ano', 'Duração', 'Idioma','Gênero','Ações');
 $header  = $this->Html->tableHeaders($titulos);
 $body    = $this->Html->tableCells($detalhe);
 $novoButton = $this->Html->link('Novo','/filmes/add');
