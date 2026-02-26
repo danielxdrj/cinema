@@ -7,7 +7,7 @@ class FilmesController extends AppController {
 
     public function index() {
 
-    $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+    $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma','Genero.nome'];    
     $order = ['Filme.ano' => 'desc'];     
     $filmes = $this->Filme->find('all', compact('fields','order'));
     
@@ -37,12 +37,14 @@ class FilmesController extends AppController {
               $this->Redirect('/Filmes');
               }
         }else{
-          $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma'];    
+          $fields = ['Filme.id','Filme.nome', 'Filme.ano','Filme.duracao','Filme.idioma','Filme.genero_id'];    
           $conditions = array('Filme.id' => $id);
           $this->request->data = $this->Filme->find('first', compact('fields','conditions'));
           
         }
-
+      $fields = array('Genero.id','Genero.nome');
+      $generos = $this->Filme->Genero->find('list', compact('fields'));
+      $this->set('generos', $generos);
      }
 
        public function view($id = null){
