@@ -8,4 +8,23 @@ class Filme extends AppModel{
             'foreignKey' => 'genero_id'
         ]
     ];
+
+    public $hasMany = [
+        'Critica' => [
+            'className' => 'Critica',
+            'foreignKey' => 'filme_id'
+        ]
+    ]; 
+
+    public $validate = [
+        'nome' => [
+            'rule' => 'notBlank',
+            'message' => 'O nome do filme é obrigatório'
+        ], 
+        'duracao' => [
+            'rule' => 'numeric',
+            'message' => 'A duração do filme é obrigatória'
+        ],
+      
+    ];
 }
